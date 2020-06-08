@@ -84,7 +84,7 @@ for x in range(len(predictions)):
 
 # ============== PLOTTING ==============
 
-p = 'Failures'
+p = 'failures'
 style.use("ggplot")
 pyplot.scatter(data[p],data['G3'])
 pyplot.xlabel(p)
