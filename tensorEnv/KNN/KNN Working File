@@ -37,3 +37,34 @@ y = list(cls)
 # y el 10% restante de prueba.
 # Hacemos esto para que no probemos el modelo con datos que ya se han visto.
 x_train, x_test,y_train, y_test = sklearn.model_selection.train_test_split(X, y, test_size=0.1)
+
+# Creamos el clasificador
+model = KNeighborsClassifier(n_neighbors=5)
+
+# Ajustamos el modelo a los datos
+model.fit(x_train, y_train)
+
+# Declaramos la precision
+acc = model.score(x_test, y_test)
+print(acc)
+
+# Nombres a los que clasifica nuestro clasificador
+names = ["unacc", "acc", "good", "vgood"]
+
+# Predecimos el resultado del clasificador
+predicted = model.predict(x_test)
+
+# Para cada elemento predecido
+for x in range(len(predicted)):
+    # Al utilizar la lista "names", transforma los indices en palabras
+    print("Predicted: ", names[predicted[x]], "Data : ", x_test[x], "Actual: ", names[y_test[x]])
+    # Hemos de pasarle el dato como una lista debido a que el metodo solo interpreta valores de dos dimensiones
+    n = model.kneighbors([x_test[x]], 9, True)
+    print("N : ", n)
+
+# Explicacion para un resultado aleatorio
+# Predicted:  unacc Data :  (0, 2, 2, 1, 0, 2) Actual:  unacc
+
+# N :  (array([[1., 1., 1., 1., 1., 1., 1., 1., 1.]]),             DISTANCIA ENTRE EL RESTO DE LOS K VECINOS
+# array([[1031,  473, 1355,  307,  488, 1299,  461,  686,  215]],  INDICE DE CADA UNO DE LOS VECINOS 
+# dtype=int64))
